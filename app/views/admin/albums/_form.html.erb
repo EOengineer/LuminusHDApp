@@ -38,7 +38,7 @@
 		<div class="form-row">
 			<div class="form-group col-md-12">
 				<%= f.label :label %>
-				<%= f.collection_select :label, Label.all, :id, :title, {selected: @album.label_id}, class: "form-control custom-select chosen-select #{" is-invalid" if @album.errors.messages[:label].present?}" %>
+				<%= f.collection_select :label_id, Label.all, :id, :title, {selected: @album.label_id}, class: "form-control custom-select chosen-select #{" is-invalid" if @album.errors.messages[:label].present?}" %>
 				<%= render partial: "admin/shared/bootstrap_form_errors", locals: { object: @album, field: :label } %>
 			</div>
 		</div>
@@ -51,7 +51,7 @@
 		<div class="form-row">	
 			<div class="form-group col-md-12">
 				<%= f.label :artist %>
-				<%= f.collection_select :artist, Artist.all, :id, :title, {selected: @album.artist_id}, class: "form-control custom-select chosen-select #{" is-invalid" if @album.errors.messages[:artist].present?}" %>
+				<%= f.collection_select :artist_id, Artist.all, :id, :title, {selected: @album.artist_id}, class: "form-control custom-select chosen-select #{" is-invalid" if @album.errors.messages[:artist].present?}" %>
 				<%= render partial: "admin/shared/bootstrap_form_errors", locals: { object: @album, field: :artist } %>
 			</div>
 		</div>
@@ -60,7 +60,7 @@
 			<div class="form-group col-md-12">
 				<%= f.label :accompanying_artists %>
 				<%= f.collection_select :artist_ids, Artist.all, :id, :title, {selected: @album.artist_id}, class: "form-control custom-select chosen-select #{" is-invalid" if @album.errors.messages[:artist].present?}", multiple: true %>
-				<%= render partial: "admin/shared/bootstrap_form_errors", locals: { object: @album, field: :artist } %>
+				<%= render partial: "admin/shared/bootstrap_form_errors", locals: { object: @album, field: :artist_ids } %>
 			</div>
 		</div>
 
@@ -81,16 +81,16 @@
 		<div class="form-row">
 			<div class="form-group col-md-6">
 				<div class="custom-file custom-file--sm">
-		  		<%= f.file_field :cover_image, class: "custom-file-input", id: "customFile" %>
-		  		<label class="custom-file-label" for="customFile">Upload cover image</label>
+		  		<%= f.file_field :cover_image, class: "custom-file-input", id: "coverImage" %>
+		  		<label class="custom-file-label" for="coverImage">Upload cover image</label>
 				</div>
 			</div>
 
 
 			<div class="form-group col-md-6">
 				<div class="custom-file custom-file--sm">
-		  		<%= f.file_field :cover_image, class: "custom-file-input", id: "customFile" %>
-		  		<label class="custom-file-label" for="customFile">Upload album art</label>
+		  		<%= f.file_field :cover_image, class: "custom-file-input", id: "albumArtImage" %>
+		  		<label class="custom-file-label" for="albumArtImage">Upload album art</label>
 				</div>
 			</div>
 		</div>
