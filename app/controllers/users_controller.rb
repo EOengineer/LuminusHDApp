@@ -13,7 +13,9 @@ class UsersController < BaseController
     @user.email.downcase!
     
     if @user.save
+    	UserMailer.with(user: @user).welcome_email.deliver_later
       # If user saves in the db successfully:
+      session[:user_id] = @user.id
       flash[:notice] = "Account created successfully!"
       redirect_to root_path
     else

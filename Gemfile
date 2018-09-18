@@ -48,6 +48,9 @@ gem 'acts_as_list'
 # nice select menus
 gem 'chosen-rails'
 
+# background jobs
+gem 'sidekiq'
+
 
 
 # Reduces boot times through caching; required in config/boot.rb

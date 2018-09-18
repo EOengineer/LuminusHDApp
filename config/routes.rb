@@ -19,6 +19,8 @@ Rails.application.routes.draw do
     resources :genres
     resources :tracks
     resources :users
+    require 'sidekiq/web'
+    mount Sidekiq::Web => '/sidekiq'
     
   end
 end
