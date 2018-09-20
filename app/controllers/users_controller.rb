@@ -1,5 +1,7 @@
 class UsersController < BaseController
 	skip_before_action :authorize, only: [:new, :create]
+  before_action :restrict_access, only: [:edit, :update]
+
 	layout "public_login"
 
 	def new
@@ -14,22 +16,40 @@ class UsersController < BaseController
     
     if @user.save
     	UserMailer.with(user: @user).welcome_email.deliver_later
-      # If user saves in the db successfully:
       session[:user_id] = @user.id
       flash[:notice] = "Account created successfully!"
       redirect_to root_path
     else
-      # If user fails model validation - probably a bad password or duplicate email:
       flash.now.alert = "Oops, couldn't create account. Please make sure you are using a valid email and password and try again."
       render :new
     end
   end
 
+  def edit
+    @user = User.find(params[:id])
+  end
+
+  def update
+    @user = User.find(params[:id])
+
+    if @user.update(user_params)
+      flash[:notice] = "Account updated successfully!"
+      redirect_to root_path
+    else
+      flash.now.alert = "Oops, couldn't update account. Please verify your data is correct."
+      render :edit
+    end
+  end
+
 private
+
+  def restrict_access
+    redirect_to root_path unless current_user.id == params[:id].to_i
+  end
 
   def user_params
     # strong parameters - whitelist of allowed fields #=> permit(:name, :email, ...)
     # that can be submitted by a form to the user model #=> require(:user)
-    params.require(:user).permit(:name, :email, :password, :password_confirmation)
+    params.require(:user).permit(:name, :email, :password, :password_confirmation, :avatar)
   end
 end

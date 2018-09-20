@@ -16,4 +16,9 @@ class Album < ApplicationRecord
             :description, presence: true
 
   validates :title, uniqueness: { scope: :artist }
+
+  scope :with_associations, -> { includes(:artist, :label) }
+  scope :available, -> { where(available: true) }
+  scope :new_releases, -> (days) { where('release_date >= ?', days.days.ago) }
+  scope :recently_added, -> { where('created_at >= ?', 14.days.ago) }
 end

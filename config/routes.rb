@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   post   '/login',   to: 'sessions#create', as: 'sessions'
   get    '/logout',  to: 'sessions#destroy', as: 'destroy_session'
 
-  resources :users, only: [:new, :create]
+  resources :users, only: [:new, :create, :edit, :update]
 
   namespace :admin do
     root to: "home#index"
