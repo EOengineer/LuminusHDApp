@@ -77,23 +77,54 @@
 			<hr />
 		</div>
 
-
+		<% if false %>
 		<div class="form-row">
-			<div class="form-group col-md-6">
+			<div class="form-group col-md-12">
 				<div class="custom-file custom-file--sm">
-		  		<%= f.file_field :cover_image, class: "custom-file-input", id: "coverImage" %>
+		  		<%= f.file_field :cover_image, direct_upload: true, class: "custom-file-input", id: "coverImage" %>
 		  		<label class="custom-file-label" for="coverImage">Upload cover image</label>
 				</div>
 			</div>
+		</div>
 
-
-			<div class="form-group col-md-6">
+		<div class="form-row">
+			<div class="form-group col-md-12">
 				<div class="custom-file custom-file--sm">
-		  		<%= f.file_field :cover_image, class: "custom-file-input", id: "albumArtImage" %>
+		  		<%= f.file_field :album_art_images, multiple: true, direct_upload: true, class: "custom-file-input", id: "albumArtImage" %>
 		  		<label class="custom-file-label" for="albumArtImage">Upload album art</label>
 				</div>
+
+				<ul>
+				  <% @album.album_art_images.each do |file| %>
+				    <li>
+				      <%= image_tag file %>
+				    </li>
+				  <% end %>
+				</ul>
+
 			</div>
 		</div>
+
+		<% end %>
+
+		<div class="form-row">
+			<div class="form-group col-md-12">
+				<%# f.label :album_art_images, class: "custom-file-label" %>
+				<%= f.file_field :album_art_images, multiple: true, direct_upload: true, class: "form-control" %>
+			</div>
+		</div>
+
+		<div id="image-loader">
+
+		</div>
+
+		<ul>
+		  <% @album.album_art_images.each do |file| %>
+		    <li>
+		      <%= image_tag file.variant(resize: '100x100') %>
+		    </li>
+		  <% end %>
+		</ul>
 
 		<div class="form-group form-row mt-5">
 			<%= f.submit class: 'btn btn-primary' %>

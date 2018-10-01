@@ -3,6 +3,7 @@ class Album < ApplicationRecord
   belongs_to :label
 
   has_one_attached :cover_image
+  has_many_attached :album_art_images
 
   has_many :album_artists
   has_many :artists, through: :album_artists

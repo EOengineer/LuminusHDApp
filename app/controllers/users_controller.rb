@@ -33,11 +33,11 @@ class UsersController < BaseController
     @user = User.find(params[:id])
 
     if @user.update(user_params)
+      redirect_to edit_user_path(@user)
       flash[:notice] = "Account updated successfully!"
-      redirect_to root_path
     else
-      flash.now.alert = "Oops, couldn't update account. Please verify your data is correct."
       render :edit
+      flash.now.alert = "Oops, couldn't update account. Please verify your data is correct."
     end
   end
 

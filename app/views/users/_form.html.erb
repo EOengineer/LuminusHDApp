@@ -60,7 +60,7 @@
   		<div class="input-group mb-2 mr-sm-2 mb-sm-0">
   			<div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-image"></i></div>
       	<div class="custom-file">
-					<%= f.file_field :avatar, class: "custom-file-input", id: "customFile" %>
+					<%= f.file_field :avatar, class: "custom-file-input", id: "customFile", direct_upload: true %>
 					<%= f.label "Avatar", class: "custom-file-label" %>
 				</div>
 			</div>
