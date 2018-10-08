@@ -68,7 +68,7 @@ class Admin::AlbumsController < Admin::BaseController
 	private
 
 	def album_params
-		params.require(:album).permit(:title, :description, :release_date, :artist_id, :label_id, :available, :cover_image, album_art_images: [])
+		params.require(:album).permit(:title, :description, :release_date, :artist_id, :label_id, :available, :cover_image, album_art_images: [], artist_ids: [])
 	end
 
 	def get_columns
