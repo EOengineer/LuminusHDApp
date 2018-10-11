@@ -3,6 +3,7 @@ class Album < ApplicationRecord
   belongs_to :label
 
   has_one_attached :cover_image
+  has_many_attached :album_art_images
 
   has_many :album_artists
   has_many :artists, through: :album_artists
@@ -16,4 +17,9 @@ class Album < ApplicationRecord
             :description, presence: true
 
   validates :title, uniqueness: { scope: :artist }
+
+  scope :with_associations, -> { includes(:artist, :label) }
+  scope :available, -> { where(available: true) }
+  scope :new_releases, -> (days) { where('release_date >= ?', days.days.ago) }
+  scope :recently_added, -> { where('created_at >= ?', 14.days.ago) }
 end
