@@ -1,4 +1,4 @@
-<%= form_for [:admin, @album], class: "container" do |f| %>
+<%= form_for [:admin, @album], builder: AdminFormBuilder, class: "container" do |f| %>
 		
 		<div class="mb-5">
 			<span>Basic information</span>
@@ -7,27 +7,16 @@
 
 		<div class="form-row">
 	    <div class="form-group col-md-6">
-				<%= f.label :title %>
-				<%= f.text_field :title, class: "form-control #{" is-invalid" if @album.errors.messages[:title].present?}" %>
-
-				<!-- validation messages -->
-				<%= render partial: "admin/shared/bootstrap_form_errors", locals: { object: @album, field: :title } %>
-
+				<%= f.admin_bs_text(:title, @album.title) %>
 			</div>
 			
 			<div class="form-group col-md-6">
-				<%= f.label :release_date %>
-				<%= datetime_field "album", "release_date", class: "form-control #{" is-invalid" if @album.errors.messages[:release_date].present?}" %>
-				<!-- validation messages -->
-				<%= render partial: "admin/shared/bootstrap_form_errors", locals: { object: @album, field: :release_date } %>
+				<%= f.admin_bs_datetime(:release_date, @album.release_date) %>
 			</div>
 		</div>
 
 		<div class="form-group">
-			<%= f.label :description %>
-			<%= f.text_area :description, rows: "10", class: "form-control #{" is-invalid" if @album.errors.messages[:description].present?}" %>
-			<!-- validation messages -->
-			<%= render partial: "admin/shared/bootstrap_form_errors", locals: { object: @album, field: :description } %>
+			<%= f.admin_bs_textarea(:description, @album.description) %>
 		</div>
 
 		<div class="mb-5 mt-5">
@@ -37,9 +26,7 @@
 		
 		<div class="form-row">
 			<div class="form-group col-md-12">
-				<%= f.label :label %>
-				<%= f.collection_select :label_id, Label.all, :id, :title, {selected: @album.label_id}, class: "form-control custom-select chosen-select #{" is-invalid" if @album.errors.messages[:label].present?}" %>
-				<%= render partial: "admin/shared/bootstrap_form_errors", locals: { object: @album, field: :label } %>
+				<%= f.admin_bs_select(:label_id, Label.all, :id, :title, {selected: @album.label_id}) %>
 			</div>
 		</div>
 
@@ -50,25 +37,18 @@
 
 		<div class="form-row">	
 			<div class="form-group col-md-12">
-				<%= f.label :artist %>
-				<%= f.collection_select :artist_id, Artist.all, :id, :title, {selected: @album.artist_id}, class: "form-control custom-select chosen-select #{" is-invalid" if @album.errors.messages[:artist].present?}" %>
-				<%= render partial: "admin/shared/bootstrap_form_errors", locals: { object: @album, field: :artist } %>
+				<%= f.admin_bs_select(:artist_id, Artist.all, :id, :title, {selected: @album.artist_id}) %>
 			</div>
 		</div>
 
 		<div class="form-row">	
 			<div class="form-group col-md-12">
-				<%= f.label :accompanying_artists %>
-				<%= f.collection_select :artist_ids, Artist.all, :id, :title, {selected: @album.artist_id}, class: "form-control custom-select chosen-select #{" is-invalid" if @album.errors.messages[:artist].present?}", multiple: true %>
-				<%= render partial: "admin/shared/bootstrap_form_errors", locals: { object: @album, field: :artist_ids } %>
+				<%= f.admin_bs_select(:artist_ids, Artist.all, :id, :title, {selected: @album.artist_ids}, multiple: true) %>
 			</div>
 		</div>
 
 		<div class="form-group form-row">
-			<div class="form-check">	
-				<%= f.check_box :available, class: "form-check-input" %>
-				<%= f.label :available, class: "form-check-label"  %>
-			</div>
+			<%= f.admin_bs_checkbox(:available, @album.available) %>
 		</div>
 
 
@@ -86,33 +66,21 @@
 				</div>
 			</div>
 		</div>
-
-		<div class="form-row">
-			<div class="form-group col-md-12">
-				<div class="custom-file custom-file--sm">
-		  		<%= f.file_field :album_art_images, multiple: true, direct_upload: true, class: "custom-file-input", id: "albumArtImage" %>
-		  		<label class="custom-file-label" for="albumArtImage">Upload album art</label>
-				</div>
-
-				<ul>
-				  <% @album.album_art_images.each do |file| %>
-				    <li>
-				      <%= image_tag file %>
-				    </li>
-				  <% end %>
-				</ul>
-
-			</div>
-		</div>
-
 		<% end %>
 
 		<div class="form-row">
 			<div class="form-group col-md-12">
-				<%# f.label :album_art_images, class: "custom-file-label" %>
-				<%= f.file_field :album_art_images, multiple: true, direct_upload: true, class: "form-control" %>
+				<%= f.admin_bs_file :cover_image, direct_upload: true %>
 			</div>
 		</div>
+
+		<div class="form-row">
+			<div class="form-group col-md-12">
+				<%= f.admin_bs_file :album_art_images, multiple: true, direct_upload: true %>
+			</div>
+		</div>
+
+
 
 		<div id="image-loader">
 
