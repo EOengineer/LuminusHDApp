@@ -60,8 +60,8 @@
       <div class="row align-items-center justify-content-start border-bottom <%= "bg-light" if i.even? %>">
 
         <% columns.each do |column| %>
-          <% if column[:association_field] %>
-            <%= table_column(row.send(column[:field]).send(column[:association_field])) %>
+          <% if !!(/_id/).match(column[:field]) %>
+            <%= table_column(row.send(column[:field].gsub("_id", "")).try(:title)) %>
           <% else %>
             <%= table_column(row.send(column[:field])) %>
           <% end %>

@@ -1,4 +1,6 @@
 class Album < ApplicationRecord
+  include Sortable
+
 	belongs_to :artist, class_name: 'Artist'
   belongs_to :label
 
