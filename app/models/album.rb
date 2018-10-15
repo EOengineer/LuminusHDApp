@@ -1,5 +1,12 @@
 class Album < ApplicationRecord
+  include Gridable
   include Sortable
+  include Searchable
+
+  search_attributes includes: [
+    'title',
+    'available'
+  ]
 
 	belongs_to :artist, class_name: 'Artist'
   belongs_to :label
