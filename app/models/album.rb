@@ -2,6 +2,7 @@ class Album < ApplicationRecord
   include Gridable
   include Sortable
   include Searchable
+  include Paginateable
 
   search_attributes includes: [
     'title',
@@ -31,4 +32,5 @@ class Album < ApplicationRecord
   scope :available, -> { where(available: true) }
   scope :new_releases, -> (days) { where('release_date >= ?', days.days.ago) }
   scope :recently_added, -> { where('created_at >= ?', 14.days.ago) }
+  
 end

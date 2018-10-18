@@ -8,8 +8,7 @@ class Admin::AlbumsController < Admin::BaseController
 		@query = @resource.includes(:artist, :label)
 							.search_columns(params[:q])
 							.sorted(@sort_field, @sort_direction)
-							.limit(@per_page)
-							.offset((@current_page - 1) * @per_page)
+							.paginated(@current_page, @per_page)
 		
 		add_breadcrumb "Albums", :admin_albums
 	end
