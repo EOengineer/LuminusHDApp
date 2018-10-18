@@ -16,7 +16,7 @@
             " class="form-inline float-left float-md-right">
 
             <div class="form-group mx-sm-3">
-              <input type="text" name="q" class="form-control" id="q" placeholder="Search">
+              <input type="text" name="q" class="form-control" id="q" placeholder="Search" value="<%= params[:q] %>">
               <button type="submit" class="btn btn-primary">Search</button>
             </div>
             
@@ -34,17 +34,17 @@
         <div class="col-md custom-table--header">
          
           <% if sort_field == column[:field] && sort_direction == 'asc' %>
-            <%= link_to admin_albums_path(per_page: per_page, page: page, sort_field: column[:field], sort_direction: 'desc') do %>
+            <%= link_to admin_albums_path(per_page: per_page, page: page, sort_field: column[:field], sort_direction: 'desc', q: params[:q]) do %>
               <%= column[:label] %>
               <a class="fa fa-arrow-down"></a>
             <% end %>
           <% elsif sort_field == column[:field] && sort_direction == 'desc' %>
-            <%= link_to admin_albums_path(per_page: per_page, page: page, sort_field: column[:field], sort_direction: 'asc') do %>
+            <%= link_to admin_albums_path(per_page: per_page, page: page, sort_field: column[:field], sort_direction: 'asc', q: params[:q]) do %>
               <%= column[:label] %>
               <a class="fa fa-arrow-up"></a>
             <% end %>
           <% else %>
-            <%= link_to admin_albums_path(per_page: per_page, page: page, sort_field: column[:field], sort_direction: 'asc') do %>
+            <%= link_to admin_albums_path(per_page: per_page, page: page, sort_field: column[:field], sort_direction: 'asc', q: params[:q]) do %>
               <%= column[:label] %>
             <% end %>
           <% end %>

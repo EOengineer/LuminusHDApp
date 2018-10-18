@@ -1,6 +1,10 @@
 module Sortable
   extend ActiveSupport::Concern
 
+  # included do 
+
+  # end
+
   module ClassMethods
     def sorted(column, direction = nil)
       column    = sort_column(column)
