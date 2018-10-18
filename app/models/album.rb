@@ -1,8 +1,5 @@
 class Album < ApplicationRecord
-  include Gridable
-  include Sortable
-  include Searchable
-  include Paginateable
+  include Gridable, Sortable, Searchable, Paginateable
 
   search_attributes includes: [
     'title',
