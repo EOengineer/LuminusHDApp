@@ -6,6 +6,14 @@ class Track < ApplicationRecord
     'time',
     'single',
     'position',
+    'albums.title'
+  ]
+
+  grid_attributes includes: [
+    'title',
+    'time',
+    'single',
+    'position',
     'album'
   ]
 

@@ -14,6 +14,7 @@ Rails.application.routes.draw do
     post   '/login',   to: 'sessions#create', as: 'sessions'
     get    '/logout',  to: 'sessions#destroy', as: 'destroy_session'
 
+    get '/dashboard', to: 'dashboards#index', as: 'dashboards'
     resources :albums
     resources :artists
     resources :genres

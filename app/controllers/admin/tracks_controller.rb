@@ -1,18 +1,5 @@
 class Admin::TracksController < Admin::BaseController
 	include GridController
-	include SortController
-	include PaginationController
-	
-
-	def index
-		@query = @resource.search_columns(params[:q])
-							.sorted(@sort_field, @sort_direction)
-							.paginated(@current_page, @per_page)
-		
-		add_breadcrumb "Tracks", :admin_tracks
-	end
-
-
 
 	def new
 		@track = Track.new
