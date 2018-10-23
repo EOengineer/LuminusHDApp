@@ -4,14 +4,19 @@ class Admin::AlbumsController < Admin::BaseController
 	include PaginationController
 	
 
-	def index
-		@query = @resource.includes(:artist, :label)
-							.search_columns(params[:q])
-							.sorted(@sort_field, @sort_direction)
-							.paginated(@current_page, @per_page)
+	# def index
+	# 	@query = @resource.joins(:artist, :label)
+	# 						.search_columns(params[:q])
+	# 						.sorted(@sort_field, @sort_direction)
+
+	# 	@total_count 	= @query.count
+	# 	@pages 				= (@total_count.fdiv(@per_page)).floor 
+	# 	@query 				= @query.paginated(@current_page, @per_page)
+
 		
-		add_breadcrumb "Albums", :admin_albums
-	end
+				
+	# 	add_breadcrumb "Albums", :admin_albums
+	# end
 
 
 

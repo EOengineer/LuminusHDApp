@@ -1,11 +1,20 @@
 class Album < ApplicationRecord
-  include Gridable
-  include Sortable
-  include Searchable
-  include Paginateable
+  include Gridable, Sortable, Searchable, Paginateable
 
   search_attributes includes: [
+    'albums.title',
+    'available',
+    'release_date',
+    'artists.title',
+    'labels.title'
+  ]
+
+  grid_attributes includes: [
+    'id',
     'title',
+    'release_date',
+    'artist',
+    'label',
     'available'
   ]
 

@@ -6,13 +6,13 @@
 
         <div class="col-12 col-md-6">
           <h3>
-            <%= resource_name %> <a href="/admin/<%= resource_name.downcase %>/new" class="btn btn-sm btn-outline-primary ml-1"><i class="fa fa-plus"></i></a><br>
+            <%= resource_name %> <a href="<%= new_polymorphic_path([:admin, controller_name.classify.constantize]) %>" class="btn btn-sm btn-outline-primary ml-1"><i class="fa fa-plus"></i></a><br>
             <small class="text-muted">Search, filter, and inspect <%=  resource_name.downcase %> here.</small>
           </h3>
         </div>
 
         <div class="col-12 col-md-6">
-          <form action="<%= admin_albums_path(per_page: per_page, page: page, sort_field: sort_field, sort_direction: sort_direction) %>" method="POST
+          <form action="<%= polymorphic_path([:admin, controller_name.classify.constantize], { per_page: per_page, page: page, sort_field: sort_field, sort_direction: sort_direction }) %>" method="POST
             " class="form-inline float-left float-md-right">
 
             <div class="form-group mx-sm-3">
@@ -34,17 +34,17 @@
         <div class="col-md custom-table--header">
          
           <% if sort_field == column[:field] && sort_direction == 'asc' %>
-            <%= link_to admin_albums_path(per_page: per_page, page: page, sort_field: column[:field], sort_direction: 'desc', q: params[:q]) do %>
+            <%= link_to polymorphic_path([:admin, controller_name.classify.constantize], { per_page: per_page, page: page, sort_field: column[:field], sort_direction: 'desc', q: params[:q] }) do %>
               <%= column[:label] %>
               <a class="fa fa-arrow-down"></a>
             <% end %>
           <% elsif sort_field == column[:field] && sort_direction == 'desc' %>
-            <%= link_to admin_albums_path(per_page: per_page, page: page, sort_field: column[:field], sort_direction: 'asc', q: params[:q]) do %>
+            <%= link_to polymorphic_path([:admin, controller_name.classify.constantize] , { per_page: per_page, page: page, sort_field: column[:field], sort_direction: 'asc', q: params[:q] }) do %>
               <%= column[:label] %>
               <a class="fa fa-arrow-up"></a>
             <% end %>
           <% else %>
-            <%= link_to admin_albums_path(per_page: per_page, page: page, sort_field: column[:field], sort_direction: 'asc', q: params[:q]) do %>
+            <%= link_to polymorphic_path([:admin, controller_name.classify.constantize], { per_page: per_page, page: page, sort_field: column[:field], sort_direction: 'asc', q: params[:q] }) do %>
               <%= column[:label] %>
             <% end %>
           <% end %>
@@ -56,12 +56,12 @@
 
   <% rows.each_with_index do |row, i| %>
   
-    <%= link_to edit_admin_album_path(row.id), class: 'custom-table--data-row' do %>
+    <%= link_to edit_polymorphic_path([:admin, row]), class: 'custom-table--data-row' do %>
       <div class="row align-items-center justify-content-start border-bottom <%= "bg-light" if i.even? %>">
 
         <% columns.each do |column| %>
-          <% if !!(/_id/).match(column[:field]) %>
-            <%= table_column(row.send(column[:field].gsub("_id", "")).try(:title)) %>
+          <% if column[:association] %>
+            <%= table_column(row.send(column[:field]).send(column[:association_attr])) %>
           <% else %>
             <%= table_column(row.send(column[:field])) %>
           <% end %>

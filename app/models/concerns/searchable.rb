@@ -6,9 +6,9 @@ module Searchable
 
     def search_columns(term)
       if term.present? 
-        self.where(concatonated_query, "%#{term}%")
+        where(concatonated_query, "%#{term}%")
       else
-        self.where(nil)
+        where(nil)
       end
 
     end

@@ -1,0 +1,12 @@
+<%= render partial: "/admin/shared/bootstrap_table", 
+	locals: {
+		resource_name: @resource_name,
+		columns: @columns,
+		rows: @query,
+		page: @current_page,
+		per_page: @per_page,
+		count: @total_count,
+		sort_field: @sort_field,
+		sort_direction: @sort_direction
+	}
+%>
